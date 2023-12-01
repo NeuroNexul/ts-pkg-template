@@ -1,0 +1,51 @@
+{
+  "name": "ts-pkg-template",
+  "version": "0.0.1",
+  "description": "A template for creating TypeScript packages",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "typescript",
+    "template",
+    "package"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsup src/index.ts --format cjs,esm --minify --dts",
+    "lint": "yarn run lint:eslint && yarn run lint:prettier",
+    "lint:eslint": "yarn eslint . --ext .ts,.tsx,.js",
+    "lint:prettier": "prettier --list-different .",
+    "type:check": "tsc --noEmit",
+    "prettier": "prettier --write .",
+    "ci": "node -v > .nvmrc && yarn run prettier && yarn run lint && yarn run test && yarn run build",
+    "release": "yarn run ci && changeset publish"
+  },
+  "author": {
+    "email": "arifsardar.private@gmail.com",
+    "name": "Arif Sardar",
+    "url": "https://arif.thedev.id"
+  },
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^20.10.1",
+    "@types/prettier": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard-with-typescript": "^40.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-vitest-globals": "^1.4.0",
+    "prettier": "^3.1.0",
+    "tsup": "^8.0.1",
+    "typescript": "*",
+    "vitest": "^0.34.6"
+  }
+}
