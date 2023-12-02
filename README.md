@@ -61,6 +61,10 @@ Now you have successfully released a new version of your package. You can instal
 
 To enable the CI/CD workflow, you need to enable the following settings in your GitHub repository:
 
+- Open `package.json` file and set the `name` and `version` fields. Make sure the `name` field is same as your GitHub repository name.
+
+  - Also, set the `repository` field with your GitHub repository URL.
+
 - Navigate to `Settings > Branches > Branch protection rules`.
 
   - Set a name as the branch name pattern

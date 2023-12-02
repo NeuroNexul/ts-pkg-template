@@ -30,6 +30,10 @@
     "name": "Arif Sardar",
     "url": "https://arif.thedev.id"
   },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "license": "MIT",
   "private": false,
   "devDependencies": {

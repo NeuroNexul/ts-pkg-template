@@ -4,28 +4,50 @@ on:
     branches:
       - main
 
+env:
+  NPM_CONFIG_PROVENANCE: true
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 21
-          cache: "yarn"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: yarn install
+        run: pnpm install
+
+      - name: Creating .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+            provenance=true
+          EOF
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create release Pull Requests or Publish
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: yarn run release
+          publish: pnpm run release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
